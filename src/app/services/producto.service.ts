@@ -2,29 +2,29 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Producto } from '../../models/producto';
-import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
   //url = 'http://localhost:4000/api/productos/'
-  private url = environment.apiUrl;
+  private url = 'https://server-angular.vercel.app/api/productos'
 
   constructor(private http: HttpClient) { }
 
   getProductos(): Observable<any> {
-    return this.http.get(`${this.url}/api/productos`);
+   return this.http.get(this.url);
   }
   eliminarProducto(id: String): Observable<any> {
-    return this.http.delete(`${this.url}/api/productos/${id}`);
+    return this.http.delete(this.url + id);
   }
-  guardarProducto(producto: Producto): Observable<any> {
-    return this.http.post(`${this.url}/api/productos`, producto)
+  guardarProducto(producto: Producto): Observable<any>{
+return this.http.post(this.url, producto)
   }
-  obtenerProducto(id: String): Observable<any> {
-    return this.http.get(`${this.url}/api/productos/${id}`);
+  obtenerProducto(id: String): Observable<any>{
+    return this.http.get(this.url + id);
   }
-  editarProducto(id: string, producto: Producto): Observable<any> {
-    return this.http.put(`${this.url}/api/productos/${id}`, producto);
+  editarProducto(id: string, producto: Producto): Observable<any>{
+    return this.http.put(this.url + id, producto);
   }
 }
